@@ -1,0 +1,8 @@
+
+tasklist.default_controller_index:
+  path: '/tasklist'
+  defaults:
+    _controller: '\Drupal\tasklist\Controller\DefaultController::index'
+    _title: 'This is my task list'
+  requirements:
+    _permission: 'access content'

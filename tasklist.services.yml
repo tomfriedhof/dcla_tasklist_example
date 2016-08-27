@@ -1,0 +1,5 @@
+services:
+  tasklist.pm_system:
+    class: Drupal\tasklist\ProjectManagmentTasksService
+    arguments: []
+

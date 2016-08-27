@@ -1,0 +1,5 @@
+name: tasklist
+type: module
+description: A psuedo task list module
+core: 8.x
+package: Custom
