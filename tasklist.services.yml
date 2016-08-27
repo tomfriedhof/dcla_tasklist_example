@@ -3,3 +3,6 @@ services:
     class: Drupal\tasklist\ProjectManagmentTasksService
     arguments: []
 
+  plugin.manager.tasklist.processor:
+    class: Drupal\tasklist\Plugin\TasklistManager
+    parent: default_plugin_manager

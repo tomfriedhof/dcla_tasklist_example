@@ -13,7 +13,10 @@ function tasklist_theme($existing, $type, $theme, $path)
 {
     return [
         'tasklist' => [
-            'variables' => ['list' => []]
+            'variables' => [
+              'list' => [],
+              'name' => NULL
+            ]
         ]
     ];
 }

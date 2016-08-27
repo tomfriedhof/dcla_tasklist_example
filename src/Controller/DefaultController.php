@@ -3,7 +3,8 @@
 namespace Drupal\tasklist\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\tasklist\ProjectManagmentTasksService;
+use Drupal\tasklist\Plugin\TasklistInterface;
+use Drupal\tasklist\Plugin\TasklistManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,8 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class DefaultController extends ControllerBase {
 
-  /** @var ProjectManagmentTasksService */
-  protected $pmService;
+  /** @var TasklistManager */
+  protected $tasklistManager;
 
   /**
    * Index.
@@ -23,26 +24,29 @@ class DefaultController extends ControllerBase {
    *   Return Hello string.
    */
   public function index() {
-    $this->pmService->authenticate();
+    /** @var TasklistInterface $pluginManager */
+    $pluginManager = $this->tasklistManager->createInstance('jira');
+    $pluginManager->authenticate();
     return [
       '#theme' => 'tasklist',
-      '#list' => $this->pmService->getTasks()
+      '#list' => $pluginManager->getTasks(),
+      '#name' => $pluginManager->getName()
     ];
   }
 
   public static function create(ContainerInterface $container)
   {
-    /** @var ProjectManagmentTasksService $pmSystem */
-    $pmSystem = $container->get('tasklist.pm_system');
-    return new static($pmSystem);
+    /** @var TasklistManager $tasklistManager */
+    $tasklistManager = $container->get('plugin.manager.tasklist.processor');
+    return new static($tasklistManager);
   }
 
   /**
    * DefaultController constructor.
    */
-  public function __construct(ProjectManagmentTasksService $pmService)
+  public function __construct(TasklistManager $tasklistManager)
   {
-    $this->pmService = $pmService;
+    $this->tasklistManager = $tasklistManager;
   }
 
 }
