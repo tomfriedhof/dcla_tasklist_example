@@ -1,0 +1,7 @@
+tasklist.admin_settings_form:
+  title: 'Tasklist Configuration'
+  route_name: tasklist.admin_settings_form
+  description: 'Set the external project management system.'
+  parent: system.admin_config_system
+  weight: 99
+

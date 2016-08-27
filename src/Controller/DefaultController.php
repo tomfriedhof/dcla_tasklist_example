@@ -24,8 +24,10 @@ class DefaultController extends ControllerBase {
    *   Return Hello string.
    */
   public function index() {
+    $system = $this->config('tasklist.settings')->get('system');
+
     /** @var TasklistInterface $pluginManager */
-    $pluginManager = $this->tasklistManager->createInstance('jira');
+    $pluginManager = $this->tasklistManager->createInstance($system);
     $pluginManager->authenticate();
     return [
       '#theme' => 'tasklist',
